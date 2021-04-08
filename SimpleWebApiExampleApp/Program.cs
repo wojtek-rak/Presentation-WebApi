@@ -8,8 +8,8 @@ using SimpleWebApiExampleApp;
 WebHost.CreateDefaultBuilder()
         .ConfigureServices(s =>
         {
-            s.AddSingleton<ContactService>();
             // configure dependency injection and ASP.NET Core services
+            s.AddSingleton<ContactService>();
         })
         .Configure(app =>
         {
@@ -17,10 +17,6 @@ WebHost.CreateDefaultBuilder()
             app.UseRouting();
             app.UseEndpoints(e =>
             {
-                e.MapGet("/", c => c.Response.WriteAsync("Hello world!"));
-                e.MapGet("hello/{name}", c => c.Response.WriteAsync($"Hello, {c.Request.RouteValues["name"]}"));
-
-
                 var contactService = e.ServiceProvider.GetRequiredService<ContactService>();
 
                 e.MapGet("/contacts",
