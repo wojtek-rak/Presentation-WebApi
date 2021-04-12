@@ -42,31 +42,28 @@ namespace Presentation_WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UseExceptionHandler("/error");
+            app.UseExceptionHandler("/error");
 
-            if (env.IsDevelopment())
-            {
-                //app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Presentation_WebApi v1"));
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Presentation_WebApi v1"));
 
-            app.UseExceptionHandler(c => c.Run(async context =>
-            {
-                var exception = context.Features
-                    .Get<IExceptionHandlerPathFeature>()
-                    .Error;
 
-                var code = 500;
-                if (exception is HttpStatusExceptionBase httpStatusExceptionBase)
-                {
-                    code = (int)httpStatusExceptionBase.Status;
-                }
+            //app.UseExceptionHandler(c => c.Run(async context =>
+            //{
+            //    var exception = context.Features
+            //        .Get<IExceptionHandlerPathFeature>()
+            //        .Error;
 
-                context.Response.StatusCode = code;
-                var response = new ErrorResponse(exception);
-                await context.Response.WriteAsJsonAsync(response);
-            }));
+            //    var code = 500;
+            //    if (exception is HttpStatusExceptionBase httpStatusExceptionBase)
+            //    {
+            //        code = (int)httpStatusExceptionBase.Status;
+            //    }
+
+            //    context.Response.StatusCode = code;
+            //    var response = new ErrorResponse(exception);
+            //    await context.Response.WriteAsJsonAsync(response);
+            //}));
 
             app.UseHttpsRedirection();
 
