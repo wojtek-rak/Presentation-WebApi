@@ -26,15 +26,6 @@ namespace Presentation_WebApi.Controllers
             _contactService = contactService;
         }
 
-        [HttpGet("teest")]
-        public IActionResult GetAlll()
-        {
-            throw new NotFoundException($"Contact with id  not found");
-
-            return Ok(_contactService.GetAll());
-        }
-
-
         [HttpGet("contacts")]
         public async Task<IActionResult> Get()
         {
